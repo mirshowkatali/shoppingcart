@@ -19,6 +19,14 @@
 			<h3>
 				<a href="<c:url value="/admin/productInventory"/>">Product Inventory</a>
 			</h3>
-			
+			<h3>
+				<a href="<c:url value="/admin/department"/>">Department</a>
+			</h3>
+			<h3>
+				<a href="<c:url value="/admin/category"/>">Category</a>
+			</h3>
+			<h3>
+				<a href="<c:url value="/admin/attribute"/>">Attribute</a>
+			</h3>
 
 <%@ include file="commonTemplates/footer.jsp" %>

@@ -6,7 +6,7 @@
 $(document).ready(function(){
 
     $('.table').DataTable({
-        "lengthMenu": [[1,2,3,5,10,-1], [1,2,3,5,10, "All"]]
+        "lengthMenu": [[5,10,-1], [5,10, "All"]]
     });
 });
 
@@ -24,7 +24,6 @@ $(document).ready(function(){
 					<tr class="bg-primary">
 						<th>thumbNail</th>
 						<th>Product Name</th>
-						<th>Category</th>
 						<th>Price</th>
 						<th></th>
 					</tr>
@@ -32,9 +31,8 @@ $(document).ready(function(){
 				<tbody>
 					<c:forEach items="${products}" var="product">
 						<tr>
-							<td><img src="<c:url value="/resources/images/${product.id}.gif "/>" alt="image" style="width:128px;height:128px;"></td>
+							<td><img src="<c:url value="/resources/images/${product.image}"/>" alt="image" style="width:128px;height:128px;"></td>
 							<td>${product.name}</td>
-							<td>${product.category}</td>
 							<td>${product.price} USD</td>
 							
 							<td>

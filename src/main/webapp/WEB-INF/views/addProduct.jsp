@@ -1,4 +1,4 @@
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="commonTemplates/header.jsp" %>
 
 <div class="container-wrapper">
@@ -8,63 +8,56 @@
 			<p>Find the required information below to add product</p>
 		</div>
 		
-		<form:form action="${pageContext.request.contextPath}/admin/product/addProduct " method="post" 
-			commandName="product" enctype="multipart/form-data">
+		<form action="${pageContext.request.contextPath}/admin/product/addProduct " method="post" >
 			<div class="form-group">
-				<label for="name">Name</label> <form:errors path="name" style="color:red; "></form:errors>
-				<form:input path="name" id="name" class="form-control" />
+				<label for="name">Name</label> 
+				<input type="text" id="name" name="name" class="form-control" />
 			</div>
 			
 			<div class="form-group">
-				<label for="category">Category</label>
-				<label class="checkbox-inline"> <form:radiobutton path="category" id="category" 
-													value="Regional" />Regional</label>
-				<label class="checkbox-inline"> <form:radiobutton path="category" id="category" 
-													value="Nature" />Nature</label>
-				<label class="checkbox-inline"> <form:radiobutton path="category" id="category" 
-													value="Seasonal" />Seasonal</label>									
+				<label>Category</label>
+				<select name="category">
+				<c:forEach var="list" items="${cat}">
+				<option value="${list.categoryId}">${list.cateogoryName}</option>
+				</c:forEach>
+				</select>								
 			</div>
 			
 			<div class="form-group">
 				<label for="description">Description</label>
-				<form:textarea path="description" id="description" class="form-control" />
+				<textarea  name="description" class="form-control">  
+				</textarea>  
 			</div>
 			
 			<div class="form-group">
-				<label for="price">Price</label> <form:errors path="price" style="color:red; "></form:errors>
-				<form:input path="price" id="price" class="form-control" />
-			</div>
-			
-					
-			<div class="form-group">
-				<label for="status">Status</label>
-				<label class="checkbox-inline"> <form:radiobutton path="status" id="status" 
-													value="active" />Active</label>
-				<label class="checkbox-inline"> <form:radiobutton path="status" id="status" 
-													value="inactive" />Inactive</label>								
+				<label for="price">Price</label> 
+				<input type="text" id="price" name="price" class="form-control" />
 			</div>
 			
 			<div class="form-group">
-				<label for="units">Units in Stock</label> <form:errors path="units" style="color:red; "></form:errors>
-				<form:input path="units" id="units" class="form-control" />
-			</div>
+				<label for="discountedprice">Discounted Price</label> 
+				<input type="text" id="discountedPrice" name="discountedPrice" class="form-control" />
+			</div>		
 			
-			<div class="form-group">
-				<label for="manufacturer">Product Manufacturer</label>
-				<form:input path="manufacturer" id="manufacturer" class="form-control" />
-			</div>
 			
 			<div class="form-group">
 				<label class="control-label" for="image">Upload Image</label>
-				<form:input path="image" id="image" type="file" class="form:input-large" />
+				<input name="image" id="image" type="file" class="form:input-large" />
 			</div>
-			
+			<div class="form-group">
+				<label class="control-label" for="image">Upload Image 2</label>
+				<input name="image_2" id="image_2" type="file" class="form:input-large" />
+			</div>
+			<div class="form-group">
+				<label class="control-label" for="image">Upload Thumbnail</label>
+				<input name="thumbnail" id="thumbnail" type="file" class="form:input-large" />
+			</div>
 			<br/><br/>
 			
 			<input type="submit" value="submit" class="btn btn-outline-success">
 			<a href="<c:url value="/admin/productInventory"/>" class="btn btn-outline-primary">Cancel</a>
 		
-		</form:form>
+		</form>
 		
 
 <%@include file="commonTemplates/footer.jsp" %>

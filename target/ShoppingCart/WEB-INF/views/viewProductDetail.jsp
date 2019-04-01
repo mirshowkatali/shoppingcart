@@ -1,25 +1,32 @@
 <%@include file="commonTemplates/header.jsp" %>
 <script src="<c:url value="/resources/js/controller.js"/>"></script>
+<script>
+
+var color= sessionStorage.getItem("color");
+var size= sessionStorage.getItem("size");
+</script>
+
 <div class="container-wrapper">
 	<div class="container">
 		<div class="page-header">
 			<h1>Product Details</h1>
 			<p>Find the detailed information of your selected product</p>
 		</div>
-		
+		<%
+    String str = "<script>document.writeln(color)</script>";
+    String str1 = "<script>document.writeln(size)</script>";
+   %>
 		<div class="conatiner" ng-app="cartApp">
 			<div class="row">
 				<div class="col-md-6 ">
-					<img src="<c:url value="/resources/images/${product.id}.gif "/>" alt="image" style="width:400px;height:250px;">
+					<img src="<c:url value="/resources/images/${product.image} "/>" alt="image" style="width:400px;height:250px;">
 				</div>
 				<div class="col-md-6">
 					<h3> ${product.name}</h3>
-					<p>${product.description}</p>
-					<p><strong>Manufacturer:</strong>${product.manufacturer}</p>
-					<p><strong>Category:</strong>${product.category}</p>
-					<p><strong>Condition:</strong>${product.condition}</p>
-					<h4>${product.price}</h4>
-					
+					<p> ${product.description}</p>
+					<h4>$${product.price}</h4>
+					<h3>Color: <%=str %></h3>
+					<h3>Size: <%=str1 %></h3>
 					<br>
 					
                     <c:set var="url" scope="page" value="/product/productList/all" />

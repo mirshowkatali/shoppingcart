@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.eShoppingCart.dao.ProductDao;
 import com.eShoppingCart.model.Product;
+import com.eShoppingCart.model.ProductCategory;
 
 @Repository
 @Transactional
@@ -43,6 +44,12 @@ public class ProductDaoImpl implements ProductDao{
 
 	public void editProduct(Product product) {
 		sessionFactory.getCurrentSession().saveOrUpdate(product);
+		
+	}
+
+	@Override
+	public void addProductCategory(ProductCategory product) {
+		sessionFactory.getCurrentSession().save(product);
 		
 	}
 

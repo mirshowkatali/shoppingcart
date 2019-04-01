@@ -29,49 +29,37 @@ public class Product implements Serializable{
 	
 	
 	@Id
-	@Column(name="pid")
+	@Column(name="product_id")
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	@NotEmpty(message = "The product name must not be null")
 	private String name;
-	private String category;
 	private String description;
 	@Min(value=0, message= "Product price must not be less than 0")
 	private double price;
-	@Column(name="pcondition")
-	private String condition;
-	private String status;
-	@Min(value=0, message= "Product unit must not be less than 0")
-	private int units;
-	private String manufacturer;
+	@Column(name="discounted_price")
+	private double discountedPrice;
 	@Transient
-	private MultipartFile image;
-	private String imageUrl;
-	
-	@OneToMany(mappedBy = "product", cascade =CascadeType.ALL, fetch = FetchType.EAGER)
-	@JsonIgnore
-	private List<CartItem> cartItemList;
-	
-	
-	public void setId(int id) {
-		this.id = id;
-	} 
-	
+	private MultipartFile imag;
+	private String image;
+	@Transient
+	private MultipartFile ima;
+	private String image_2;
+	@Transient
+	private MultipartFile im;
+	private String thumbnail;
+	private int display;
 	public int getId() {
 		return id;
 	}
-	
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getCategory() {
-		return category;
-	}
-	public void setCategory(String category) {
-		this.category = category;
 	}
 	public String getDescription() {
 		return description;
@@ -85,62 +73,55 @@ public class Product implements Serializable{
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public String getCondition() {
-		return condition;
+	public double getDiscountedPrice() {
+		return discountedPrice;
 	}
-	public void setCondition(String condition) {
-		this.condition = condition;
+	public void setDiscountedPrice(double discountedPrice) {
+		this.discountedPrice = discountedPrice;
 	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public int getUnits() {
-		return units;
-	}
-	public void setUnits(int units) {
-		this.units = units;
-	}
-	public String getManufacturer() {
-		return manufacturer;
-	}
-	public void setManufacturer(String manufacturer) {
-		this.manufacturer = manufacturer;
-	}
-	
-	public MultipartFile getImage() {
+	public String getImage() {
 		return image;
 	}
-	public void setImage(MultipartFile image) {
+	public void setImage(String image) {
 		this.image = image;
 	}
+	public String getImage_2() {
+		return image_2;
+	}
+	public void setImage_2(String image_2) {
+		this.image_2 = image_2;
+	}
+	public String getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
+	public int getDisplay() {
+		return display;
+	}
+	public void setDisplay(int display) {
+		this.display = display;
+	}
+	public MultipartFile getImag() {
+		return imag;
+	}
+	public void setImag(MultipartFile imag) {
+		this.imag = imag;
+	}
+	public MultipartFile getIma() {
+		return ima;
+	}
+	public void setIma(MultipartFile ima) {
+		this.ima = ima;
+	}
+	public MultipartFile getIm() {
+		return im;
+	}
+	public void setIm(MultipartFile im) {
+		this.im = im;
+	}
 	
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
-	}
-	
-	
-
-	public List<CartItem> getCartItemList() {
-		return cartItemList;
-	}
-
-	public void setCartItemList(List<CartItem> cartItemList) {
-		this.cartItemList = cartItemList;
-	}
-
-	@Override
-	public String toString() {
-		return String.format(
-				"Product [id=%s, name=%s, category=%s, description=%s, price=%s, condition=%s, status=%s, units=%s, manufacturer=%s]",
-				id, name, category, description, price, condition, status, units, manufacturer);
-	}
 	
 
 	

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.eShoppingCart.dao.ProductDao;
 import com.eShoppingCart.model.Product;
+import com.eShoppingCart.model.ProductCategory;
 import com.eShoppingCart.service.ProductService;
 
 @Service
@@ -35,6 +36,12 @@ public class ProductServiceImpl implements ProductService{
 
 	public void editProduct(Product product) {
 		productDao.editProduct(product);
+	}
+
+	@Override
+	public void addProductCategory(ProductCategory product) {
+		productDao.addProductCategory(product);
+		
 	}
 
 }

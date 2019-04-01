@@ -11,55 +11,41 @@
 		<form:form action="${pageContext.request.contextPath}/admin/product/editProduct " method="post" 
 			commandName="product" enctype="multipart/form-data">
 			
-			<form:hidden path ="id" value="${product.id }" />
+			<input type ="hidden" name="id" value="${product.id }" />
 			<div class="form-group">
-				<label for="name">Name</label>
-				<form:input path="name" id="name" class="form-control" value="${product.name}"/>
+				<label for="name">Name</label> 
+				<input type="text" id="name" name="name" class="form-control" value="${product.name}" }/>
 			</div>
 			
 			<div class="form-group">
-				<label for="category">Category</label>
-				<label class="checkbox-inline"> <form:radiobutton path="category" id="category" 
-													value="Regional" />Regional</label>
-				<label class="checkbox-inline"> <form:radiobutton path="category" id="category" 
-													value="Nature" />Nature</label>
-				<label class="checkbox-inline"> <form:radiobutton path="category" id="category" 
-													value="Seasonal" />Seasonal</label>									
+				<label>Category</label>
+				<select name="category">
+				<c:forEach var="list" items="${cat}">
+				<option value="${list.categoryId}">${list.cateogoryName}</option>
+				</c:forEach>
+				</select>								
 			</div>
 			
 			<div class="form-group">
 				<label for="description">Description</label>
-				<form:textarea path="description" id="description" class="form-control" value="${product.description }"/>
+				<textarea  name="description" class="form-control">  
+				${product.description }</textarea>  
 			</div>
 			
 			<div class="form-group">
-				<label for="price">Price</label>
-				<form:input path="price" id="price" class="form-control" value="${product.price}"/>
-			</div>
-			
-			
-			
-			<div class="form-group">
-				<label for="status">Status</label>
-				<label class="checkbox-inline"> <form:radiobutton path="status" id="status" 
-													value="active" />Active</label>
-				<label class="checkbox-inline"> <form:radiobutton path="status" id="status" 
-													value="inactive" />Inactive</label>								
+				<label for="price">Price</label> 
+				<input type="text" id="price" name="price" class="form-control" value="${product.price}" />
 			</div>
 			
 			<div class="form-group">
-				<label for="units">Units in Stock</label>
-				<form:input path="units" id="units" class="form-control" value="${product.units}" />
-			</div>
+				<label for="discountedprice">Discounted Price</label> 
+				<input type="text" id="discountedPrice" name="discountedPrice" class="form-control" value="${product.discountedPrice}" />
+			</div>		
+			
 			
 			<div class="form-group">
-				<label for="manufacturer">Product Manufacturer</label>
-				<form:input path="manufacturer" id="manufacturer" class="form-control" value="${product.manufacturer}" />
-			</div>
-			
-			<div class="form-group">
-				<label class="control-label" for="image">Upload Image</label>
-				<form:input path="image" id="image" type="file" class="form:input-large" />
+				<label class="control-label" for="image">Image</label>
+				<img name="image" id="image" src="${product.image}"/>
 			</div>
 			
 			<br/><br/>

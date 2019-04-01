@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -19,7 +21,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.eShoppingCart.model.Category;
 import com.eShoppingCart.model.Product;
+import com.eShoppingCart.model.ProductCategory;
+import com.eShoppingCart.service.CategoryService;
 import com.eShoppingCart.service.ProductService;
 
 @Controller
@@ -32,27 +37,52 @@ public class AdminProductController {
 	@Autowired
 	private ProductService productService;
 	
+	@Autowired
+	private CategoryService categoryService;
+	
 	@RequestMapping("/product/addProduct")
-	public String addProduct(Model model){
+	public String addProduct(Map model){
 		Product product = new Product();
-		product.setCategory("Regional");
-		product.setCondition("Nature");
-		product.setStatus("Seasonal");
-		
-		model.addAttribute("product", product);
+		List<Category> cat=categoryService.getCategoryAll();
+		ProductCategory pc=new ProductCategory();
+		model.put("pc", pc);
+		model.put("cat", cat);
+		model.put("product", product);
 		return "addProduct";
 	}
 	
 	@RequestMapping(value="/product/addProduct", method=RequestMethod.POST)
-	public String addProduct(@Valid @ModelAttribute Product product, BindingResult result, HttpServletRequest request){
+	public String addProduct(HttpServletRequest request){
 		
-		if(result.hasErrors()){
-			return "addProduct";
-		}
-		
+		String name=request.getParameter("name");
+		String category=request.getParameter("category");
+		int category1=Integer.parseInt(category);
+		String description=request.getParameter("description");
+	    String price=request.getParameter("price");
+	    double price1=Double.parseDouble(price);
+	    String discountedPrice=request.getParameter("discountedPrice");
+	    double discountedPrice1=Double.parseDouble(discountedPrice);
+	    String image=request.getParameter("image");
+	    String image_2=request.getParameter("image_2");
+	    String thumbnail=request.getParameter("thumbnail");
+	    
+	    Product product= new Product();
+	    product.setName(name);
+	    product.setDescription(description);
+	    product.setPrice(price1);
+	    product.setDiscountedPrice(discountedPrice1);
+	    product.setImage(image);
+	    product.setImage_2(image_2);
+	    product.setThumbnail(thumbnail);
+	    
+	    ProductCategory pc=new ProductCategory();
+	    pc.setCategoryId(category1);
+	    
 		productService.addProduct(product);
+		pc.setProductId(product.getId());
+		productService.addProductCategory(pc);
 		
-		MultipartFile productImage = product.getImage();
+		MultipartFile productImage = product.getImag();
 		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
 		path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + product.getId()+".gif");
 		
@@ -72,19 +102,39 @@ public class AdminProductController {
 	@RequestMapping("/product/editProduct/{id}")
 	public String editProduct(@PathVariable(value="id") int id, Model model){
 		Product product = productService.getProductById(id);
-		
+		List<Category> cat=categoryService.getCategoryAll();
 		model.addAttribute("product", product);
+		model.addAttribute("cat", cat);
 		return "editProduct";
 	}
 	
 	@RequestMapping(value="/product/editProduct", method=RequestMethod.POST)
-	public String editProduct(@Valid @ModelAttribute(value="product") Product product, BindingResult result, HttpServletRequest request){
+	public String editProduct(HttpServletRequest request){
+		String id=request.getParameter("id");
+		int id1=Integer.parseInt(id);
+		Product product = productService.getProductById(id1);
 		
-		if(result.hasErrors()){
-			return "editProduct";
-		}
+		String name=request.getParameter("name");
+		String category=request.getParameter("category");
+		int category1=Integer.parseInt(category);
+		String description=request.getParameter("description");
+	    String price=request.getParameter("price");
+	    double price1=Double.parseDouble(price);
+	    String discountedPrice=request.getParameter("discountedPrice");
+	    double discountedPrice1=Double.parseDouble(discountedPrice);
+	    String image=request.getParameter("image");
+	    
+	    
+	    product.setName(name);
+	    product.setDescription(description);
+	    product.setPrice(price1);
+	    product.setDiscountedPrice(discountedPrice1);
+	    
 		
-		MultipartFile productImage = product.getImage();
+		
+		
+		
+		MultipartFile productImage = product.getImag();
 		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
 		path = Paths.get(rootDirectory + "\\WEB-INF\\resources\\images\\" + product.getId()+".png");
 		

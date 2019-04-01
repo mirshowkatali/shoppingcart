@@ -2,14 +2,21 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@include file="/WEB-INF/views/commonTemplates/header.jsp" %>>
 <jsp:useBean id="now" class="java.util.Date" />
+<script>
 
+var color= sessionStorage.getItem("color");
+var size= sessionStorage.getItem("size");
+</script>
 <div class="container-wrapper">
 	<div class="container">
 		<div class="page-header">
 			<h1>Order</h1>
 			<p>Order Confirmation</p>
 		</div>
-		
+		<%
+    String str = "<script>document.writeln(color)</script>";
+    String str1 = "<script>document.writeln(size)</script>";
+   %>
 		<div class="container">
 
             <div class="row">
@@ -60,6 +67,8 @@
                                 <thead>
                                 <tr>
                                     <th>Product</th>
+                                    <th>Color</th>
+                                    <th>Size</th>
                                     <th>#</th>
                                     <th class="text-center">Price</th>
                                     <th class="text-center">Total</th>
@@ -69,6 +78,8 @@
                                 <c:forEach var="cartItem" items="${order.cart.cartItems}" >
                                     <tr>
                                         <td class="col-md-9"><em>${cartItem.product.name}</em></td>
+                                        <td><%=str %></td>
+                                        <td><%=str1 %></td>
                                         <td class="col-md-1" style="text-align: center">${cartItem.quantity}</td>
                                         <td class="col-md-1" style="text-align: center">${cartItem.product.price}</td>
                                         <td class="col-md-1" style="text-align: center">${cartItem.totalPrice}</td>
