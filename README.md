@@ -1,5 +1,5 @@
 # ShoppingCart
-Shopping Cart Application using Core Java,Spring MVC, Hibernate,AWS and MySQL
+Shopping Cart Application using Core Java,Spring MVC, Hibernate,Heroku and MySQL
 
 
 
